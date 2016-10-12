@@ -31,7 +31,3 @@ class Zaim
 
 end
 
-
-za = Zaim::new
-za.create_payment({ :mapping => 1 , :category_id => 101 , :genre_id => 10104 , :amount => 12345,
-                    :date => "2016-10-7" , :name => "パン" , :place => "北部生協" })

@@ -28,10 +28,10 @@ def get_record_from_coop
     items = []
     trs.each do |tr|
       break if tr.element_children[0].content.strip == ""
-      item = { "date" => Date.parse(tr.element_children[0].content.strip).to_s,
-               "place" => tr.element_children[1].content.strip,
+      item = { "date" => Date.parse(tr.element_children[0].content.strip).to_i,
                "name" => tr.element_children[2].content.strip,
-               "amount" => tr.element_children[4].content.strip.to_i
+               "amount" => tr.element_children[4].content.strip.to_i,
+               "place" => tr.element_children[1].content.strip
       }
       items.push(item)
     end

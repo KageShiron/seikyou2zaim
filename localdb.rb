@@ -33,11 +33,12 @@ class RecordDB
 
   def add_records( list )
     sql = 'INSERT INTO record values(:date,:name ,:amount ,:place)'
-  p list
+
     SQLite3::Database.new(@dbname) do |db|
       db.transaction do
         list.each do |i|
-          db.execute(sql,i)
+          i.select!{|key,val| [:date,:name,:amount,:place].include?(key) }
+          db.execute(sql,i.select{|key,val| [:date,:name,:amount,:place].include?(key) })
         end
       end
     end

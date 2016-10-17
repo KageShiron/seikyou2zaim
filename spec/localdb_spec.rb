@@ -38,6 +38,8 @@ describe RecordDB do
     db.delete_existing( list )
     expect(list).to eq []
 
+    File.delete("mytest.db")
+
   end
 end
 

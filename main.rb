@@ -6,26 +6,23 @@ require "./zaim.rb"
 require "./localdb"
 
 p "open local DB"
-db = RecordDB::new("records.db")
+db = RecordDB::new("seikyo")
 
 p "start scraping..."
-records = get_record_from_coop
+records = get_record_from_coop(db.read_setting('SEIKYO_ID'),db.read_setting('SEIKYO_PASS'))
 
 p "delete existing records"
 db.delete_existing( records )
 p records
 
 p "start send to Zaim"
-za = Zaim::new
+za = Zaim::new(db.read_setting('CONSUMER_KEY'),db.read_setting('CONSUMER_SECRET'),db.read_setting('ACCESS_TOKEN'),db.read_setting('ACCESS_SECRET'))
 records.each do |r|
   p r
-  da = r[:date]
-  r[:date] = Time.at(r[:date]).strftime("%Y-%m-%d")
   r[:mapping] = 1
   r[:category_id] = 101
   r[:genre_id] = 10104
   za.create_payment(r)
-  r[:date] = da
 end
 
 db.add_records( records )

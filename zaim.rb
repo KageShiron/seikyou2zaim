@@ -4,12 +4,7 @@ require "json"
 
 class Zaim
   API_URL = 'https://api.zaim.net/v2/'
-  def initialize
-    val = File.open("pass.txt","r:utf-8").readlines()
-    consumer_key = val[2].strip
-    consumer_secret = val[3].strip
-    token = val[4].strip
-    token_secret = val[5].strip
+  def initialize(consumer_key,consumer_secret,token,token_secret)
 
     consumer = OAuth::Consumer.new(consumer_key, consumer_secret,
                                    site: 'https://api.zaim.net',

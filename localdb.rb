@@ -39,6 +39,10 @@ class RecordDB
     #end
   end
 
+  def read_setting( key )
+    return @con.exec( "SELECT value FROM setting WHERE key='#{key}'").to_a.first()["value"]
+  end
+
   def add_records( list )
     sql = 'INSERT INTO record values($1,$2 ,$3 ,$4);'
 
@@ -52,6 +56,10 @@ class RecordDB
       end
     #end
     return list
+  end
+
+  def finish
+    @con.finish
   end
 
   def drop_database
